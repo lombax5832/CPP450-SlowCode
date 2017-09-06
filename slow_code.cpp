@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
 		{
 			outfile << vd_mat[i][j] << ' ';
 		}
+		outfile << "\n\n";
 	}
 
 	outfile.close();
