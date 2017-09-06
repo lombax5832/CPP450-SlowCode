@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <math.h>
+#include <stdint.h>
 
 // complex algorithm for evaluation
 void myfunc(std::vector<std::vector<double> > &v_s,
@@ -14,14 +15,14 @@ void myfunc(std::vector<std::vector<double> > &v_s,
 {
 	// this assumes that the two dimensional vector is square 
 
-	double d_val;
+	uint8_t i_val;
 
 	for (int j = 0; j < v_s.size(); j++)
 	{
 		for (int i = 0; i < v_s[0].size(); i++)
 		{
-			d_val = round(fmod(i_v[i], 256)); // this should return an integer
-			v_mat[j][i] = v_s[j][i] * (-cos(2.0*d_val));
+			i_val = round(fmod(i_v[i], 256)); // this should return an integer
+			v_mat[j][i] = v_s[j][i] * (-cos(2.0*i_val));
 		}
 	}
 }
