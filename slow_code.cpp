@@ -7,21 +7,25 @@
 #include <stdlib.h>
 #include <vector>
 #include <math.h>
-#include <stdint.h>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 // complex algorithm for evaluation
-void myfunc(double** v_s, double** v_mat, int* i_v, int size)
+void myfunc(std::vector<std::vector<double> > &v_s,
+	std::vector<std::vector<double> > &v_mat, std::vector<int> &i_v)
 {
 	// this assumes that the two dimensional vector is square 
 
-	uint8_t i_val;
+	double d_val;
 
-	for (int j = 0; j < size; j++)
+	for (int j = 0; j < v_s.size(); j++)
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < v_s[0].size(); i++)
 		{
-			i_val = round(fmod(i_v[i], 256)); // this should return an integer
-			v_mat[j][i] = v_s[j][i] * (-cos(2.0*i_val));
+			d_val = round(fmod(i_v[i], 256)); // this should return an integer
+			v_mat[i][j] = v_s[i][j] * (sin(d_val)*sin(d_val) - cos(d_val)*cos(d_val));
 		}
 	}
 }
@@ -48,14 +52,11 @@ int main(int argc, char *argv[])
 	}
 
 	// some declarations
+	std::vector<std::vector<double> > vd_s(i_N, std::vector<double>(i_N));
+	std::vector<std::vector<double> > vd_mat(i_N, std::vector<double>(i_N));
+	std::vector<int> vi_v(i_N);
 
-	double **vd_s = new double*[i_N];
-	double **vd_mat = new double*[i_N];
-	for (int i = 0; i < i_N; i++) {
-		vd_s[i] = new double[i_N];
-		vd_mat[i] = new double[i_N];
-	}
-	int *vi_v = new int[i_N];
+	
 
 	// populate memory with some random data
 	for (int i = 0; i < i_N; i++)
@@ -71,23 +72,26 @@ int main(int argc, char *argv[])
 	// iterative test loop
 	for (int i = 0; i < i_R; i++)
 	{
-		myfunc(vd_s, vd_mat, vi_v, i_N);
+		myfunc(vd_s, vd_mat, vi_v);
 	}
 
 	// end benchmark
 	d_E = clock();
 
-	// delete dynamically allocated stuff
-	for (int i = 0; i < i_N; i++) {
-		delete[] vd_mat[i];
-		delete[] vd_s[i];
+	ofstream outfile = ofstream("output.txt");
+
+	for (int i = 0; i < vd_s.size(); i++)
+	{
+		for (int j = 0; j < vd_s[0].size(); j++)
+		{
+			outfile << vd_s[i][j] << ' ';
+		}
 	}
-	delete[] vd_s;
-	delete[] vd_mat;
-	delete[] vi_v;
+
+	outfile.close();
 
 	// report results
-	printf("Elapsed time: %f\n", (float)(d_E - d_S)/CLOCKS_PER_SEC);
+	printf("Elapsed time: %f\n", (float)(d_E - d_S) / CLOCKS_PER_SEC);
 
 	return 0;
 }
