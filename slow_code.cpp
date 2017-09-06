@@ -78,13 +78,13 @@ int main(int argc, char *argv[])
 	// end benchmark
 	d_E = clock();
 
-	ofstream outfile = ofstream("output.txt");
+	ofstream outfile = ofstream("outputorig.txt");
 
 	for (int i = 0; i < vd_s.size(); i++)
 	{
 		for (int j = 0; j < vd_s[0].size(); j++)
 		{
-			outfile << vd_s[i][j] << ' ';
+			outfile << vd_mat[i][j] << ' ';
 		}
 	}
 
