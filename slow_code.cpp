@@ -21,7 +21,7 @@ void myfunc(std::vector<std::vector<double> > &v_s,
 		for (int i = 0; i < v_s[0].size(); i++)
 		{
 			d_val = round(fmod(i_v[i], 256)); // this should return an integer
-			v_mat[i][j] = v_s[i][j] * (sin(d_val)*sin(d_val) - cos(d_val)*cos(d_val));
+			v_mat[i][j] = v_s[i][j] * (-cos(2.0*d_val));
 		}
 	}
 }
