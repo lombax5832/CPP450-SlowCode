@@ -8,6 +8,10 @@
 #include <vector>
 #include <math.h>
 #include <stdint.h>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 // complex algorithm for evaluation
 void myfunc(double** v_s, double** v_mat, int* i_v, int size)
@@ -76,6 +80,18 @@ int main(int argc, char *argv[])
 
 	// end benchmark
 	d_E = clock();
+
+	ofstream outfile = ofstream("output.txt");
+
+	for (int i = 0; i < i_N; i++)
+	{
+		for (int j = 0; j < i_N; j++)
+		{
+			outfile << vd_mat[i][j] << ' ';
+		}
+	}
+
+	outfile.close();
 
 	// delete dynamically allocated stuff
 	for (int i = 0; i < i_N; i++) {
