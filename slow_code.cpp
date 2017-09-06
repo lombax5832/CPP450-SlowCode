@@ -20,12 +20,12 @@ void myfunc(double** v_s, double** v_mat, int* i_v, int size)
 
 	uint8_t i_val;
 
-	for (int j = 0; j < size; j++)
+	for (int i = 0; i < size; i++)
 	{
-		for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
 		{
 			i_val = round(fmod(i_v[i], 256)); // this should return an integer
-			v_mat[j][i] = v_s[j][i] * (-cos(2.0*i_val));
+			v_mat[i][j] = v_s[i][j] * (-cos(2.0*i_val));
 		}
 	}
 }
