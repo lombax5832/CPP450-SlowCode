@@ -21,7 +21,7 @@ void myfunc(double** v_s, double** v_mat, int* i_v, int size)
 	{
 		for (int j = 0; j < size; j++)
 		{
-			i_val = round(fmod(i_v[i], 256)); // this should return an integer
+			i_val = i_v[i] % 256; // this should return an integer
 			v_mat[i][j] = v_s[i][j] * (-cos(2.0*i_val));
 		}
 	}
