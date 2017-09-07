@@ -16,7 +16,7 @@ void myfunc(double** v_s, double** v_mat, int* i_v, int size)
 	// this assumes that the two dimensional vector is square 
 
 	uint8_t i_val;
-
+		
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
@@ -77,19 +77,6 @@ int main(int argc, char *argv[])
 
 	// end benchmark
 	d_E = clock();
-
-	ofstream outfile = ofstream("output.txt");
-
-	for (int i = 0; i < i_N; i++)
-	{
-		for (int j = 0; j < i_N; j++)
-		{
-			outfile << vd_mat[i][j] << ' ';
-		}
-		outfile << "\n\n";
-	}
-
-	outfile.close();
 
 	// delete dynamically allocated stuff
 	for (int i = 0; i < i_N; i++) {
